@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h1>Lista lotów</h1>
+    <div id="lotyContainer">
+        <nav>
+            <ul>
+                <li><a href="adres.html">Stron1</a></li>
+                <li><a href="adres.html">Stron2</a>
+                    <ul>
+                        <li><a href="adres.html">Podstrona21</a></li>
+                        <li><a href="adres.html">Podstrona22</a></li>
+                    </ul>
+                </li>
+                <li><a href="adres.html">Stron3</a></li>
+                <li><a href="adres.html">Stron4</a></li>
+                <li><a href="adres.html">Stron5</a></li>
+                <li><a href="adres.html">Stron6</a></li>
+                <li><a href="adres.html">Stron7</a></li>
+            </ul>
+        </nav>
+        <main id="listaLotow">
+            <img src="logo.jpg" alt="logo firmy"  style="width: 200px; height: 120px;"  >
+            <p id="pierwszy">akapit 1</p>
+            <p id="drugi">akapit 2</p>
+            <div id="super">
+                <p id="trzeci">Super lot</p>
+                <table id="loty">
+                    <tr>
+                        <th>nr lotu</th> <th>skąd</th> <th>dokąd</th> <th>data</th><th>godzina</th>
+                    </tr>
+                    <tr>
+                        <th><a href="lot1.html">1</a></th> <th>Warszawa</th> <th>Radom</th> <th>21.03.2020</th><th>17:00</th>
+                    </tr>
+                    <tr>
+                        <th><a href="lot1.html">2</a></th> <th></th> <th></th> <th></th><th></th>
+                    </tr>
+                    <tr>
+                        <th><a href="lot1.html">3</a></th> <th></th> <th></th> <th></th><th></th>
+                    </tr>
+                </table>
+            </div>
+        </main>
+        <aside>
+            <h3>Opóźnienia</h3>
+            <table id="opoznienia">
+                <tr>
+                    <th>skąd</th> <th>dokąd</th> <th>godzina</th> <th>opoźnienie</th>
+                </tr>
+                <tr class="bopozniony">
+                    <th>Warszawa</th> <th>Radom</th> <th>17:00</th> <th>95 min</th>
+                </tr>
+                <tr>
+                    <th>Warszawa</th> <th>Radom</th> <th>17:01</th> <th>15 min</th>
+                </tr>
+                <tr class="odwolany">
+                    <th>Warszawa</th> <th>Radom</th> <th>17:02</th> <th>odwołany</th>
+                </tr>
+                <tr>
+                    <th>Warszawa</th> <th>Radom</th> <th>17:03</th> <th>15 min</th>
+                </tr>
+                <tr>
+                    <th>Warszawa</th> <th>Radom</th> <th>17:04</th> <th>15 min</th>
+                </tr>
+            </table>
+            <form>
+                <label for="skad">
+                    Skąd:
+                </label>
+                <select id="skad">
+                    <option value="Rzym">Rzym</option>
+                    <option value="Warszawa">Warszawa</option>
+                    <option value="Radom">Radom</option>
+                </select>
+                <br>
+                <label for="dokad">
+                    Dokąd:
+                </label>
+                <select id="dokad">
+                    <option value="Rzym">Rzym</option>
+                    <option value="Warszawa">Warszawa</option>
+                    <option value="Radom">Radom</option>
+                </select>
+                <br>
+                <label for="fname">
+                    Imie:
+                </label>
+                <input type="text" id='fname' name='fname'>
+                <br>
+                <label for="nazwisko">
+                    Nazwisko:
+                </label>
+                <input type="text" id='nazwisko' name='nazwisko'>
+                <br>
+                <label for="data">
+                    Data:
+                </label>
+                <input type="date" id='data' name='data'>
+                <br>
+                <input type="reset" value="Resetuj">
+                <input type="submit" value="Prześlij formularz">
+            </form>
+        </aside>
+    </div>
+    <footer>
+        autor: Mateusz Turowski
+    </footer>
+</body>
+</html>

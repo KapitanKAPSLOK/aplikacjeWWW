@@ -1,0 +1,178 @@
+body{
+    background-color: lightgray;
+
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer {
+
+    background-color: aliceblue;
+  
+    color: green;
+  
+    font-family: sans-serif;
+  
+    font-size: 30px;
+  
+    width: 50%;
+
+    margin-top: 50px;
+    clear: both;
+  }
+table#loty{
+    margin-left: 0;
+    margin-right: 0;
+}
+table{
+      border: 1mm solid grey;
+      border-collapse: collapse;
+      text-align: left;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: normal;
+  }
+tr{
+    border: 1mm ridge grey;
+}
+th{
+    border: 1mm ridge grey;
+    padding: 5px;
+}
+tr.tytul{
+    font-size: 20px;
+}
+h1{
+    font-size: 50px;
+    font-weight: 100;
+}
+p{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+p#pierwszy{
+    background-color: blanchedalmond;
+}
+p#drugi{
+    background-color: burlywood;
+    display: block;
+}
+p#trzeci{
+    width: 200px;
+    background-color: rgba(0, 255, 255, 0.329);
+    display: block;
+    position: absolute;
+    left: 20px;
+    top:55px;
+    z-index: 2;
+}
+div#super{
+    background-color: coral;
+    position: relative;
+}
+main{
+    width:980px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(192, 192, 192);
+    overflow: hidden;
+    border-collapse: collapse;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+main#listaLotow{
+    flex:2;
+}
+
+div.miasto{
+    text-align: center;
+    width:430px;
+    background-color: darkgray;
+    display: block;
+    float:left;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+div#miasto1{
+    margin-right: 0px;
+}
+a.nazwa{
+    font-size: 35px;
+}
+img{
+    width: 350px;
+    height: 250px;
+    margin:20px;
+}
+#samolot{
+    font-size: 20px;
+    line-height:25px;
+    padding-bottom: 20px;
+}
+img#samolotzdj{
+    width: 240px;
+    height: 160px;
+}
+ol{
+    text-align: left;
+}
+nav ul{
+    list-style: none;
+    text-transform: uppercase;
+    font-family:fantasy;
+}
+nav >ul{
+    padding-left: 1px;
+}
+nav a:link{
+    text-decoration: none;
+}
+nav a:visited{
+    color:blue;
+}
+nav{
+    flex:1;
+    text-align: left;
+    background-color: darkgreen;
+}
+aside{
+    flex:1;
+    background-color: darkgreen;
+}
+aside tr{
+    background-color: rgb(226, 208, 43);
+}
+aside tr.bopozniony{
+    background-color: orange;
+}
+aside tr.odwolany{
+    background-color: red;
+}
+aside form{
+    text-align: left;
+}
+div#lotyContainer{
+    display: flex;
+}
+@media screen and (max-width:800px){
+    div#lotyContainer{
+        flex-flow: row wrap;
+    }
+    nav{
+        width: 100%;
+    }
+    main,aside{
+        width: 50%;
+    }
+    main#listaLotow{
+        width: 50%;
+    }
+}
