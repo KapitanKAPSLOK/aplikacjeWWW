@@ -9,8 +9,11 @@
     <script src='main.js'></script>
 </head>
 <body>
-    <h1>Lista lotów</h1>
-    <div id="lotyContainer">
+    <div id="okienko">
+        <h1>Pomyślnie udało się zarezerwować lot.</h1>
+    </div>
+    <div id="contListaLotow" class="container">
+        <h1>Lista lotów</h1>
         <nav>
             <ul>
                 <li><a href="adres.html">Stron1</a></li>
@@ -77,7 +80,7 @@
                 </label>
                 <select id="skad">
                     <option value="Rzym">Rzym</option>
-                    <option value="Warszawa">Warszawa</option>
+                    <option selected value="Warszawa">Warszawa</option>
                     <option value="Radom">Radom</option>
                 </select>
                 <br>
@@ -87,7 +90,7 @@
                 <select id="dokad">
                     <option value="Rzym">Rzym</option>
                     <option value="Warszawa">Warszawa</option>
-                    <option value="Radom">Radom</option>
+                    <option selected value="Radom">Radom</option>
                 </select>
                 <br>
                 <label for="fname">
@@ -109,9 +112,9 @@
                 <input type="submit" value="Prześlij formularz">
             </form>
         </aside>
+        <footer>
+            autor: Mateusz Turowski
+        </footer>
     </div>
-    <footer>
-        autor: Mateusz Turowski
-    </footer>
 </body>
 </html>

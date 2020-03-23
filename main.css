@@ -1,25 +1,42 @@
 body{
     background-color: lightgray;
-
     text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
+.container{
+    display: grid;
+    column-gap: 15px;
+    place-items: stretch;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#contListaLotow{
+    grid-template-columns: 200px 3fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "header header header"
+    "nav main aside"
+    "footer footer footer";
+}
+#contDaneLotu{
+    grid-template-columns: minmax(190px, 1fr) 4fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "header header"
+    "aside main"
+    "footer footer";
+}
 
 footer {
-
+    grid-area: footer;
     background-color: aliceblue;
-  
     color: green;
-  
     font-family: sans-serif;
-  
     font-size: 30px;
-  
     width: 50%;
-
-    margin-top: 50px;
-    clear: both;
+    margin-top: 50px;  
   }
 table#loty{
     margin-left: 0;
@@ -46,6 +63,7 @@ tr.tytul{
 h1{
     font-size: 50px;
     font-weight: 100;
+    grid-area: header;
 }
 p{
     width: 75%;
@@ -73,37 +91,29 @@ div#super{
     position: relative;
 }
 main{
-    width:980px;
-    margin-left: auto;
-    margin-right: auto;
+    grid-area: main;
     background-color: rgb(192, 192, 192);
-    overflow: hidden;
     border-collapse: collapse;
     padding-bottom: 20px;
     padding-top: 10px;
 }
-main#listaLotow{
-    flex:2;
-}
 
 div.miasto{
     text-align: center;
-    width:430px;
     background-color: darkgray;
-    display: block;
-    float:left;
-    margin-left: 40px;
-    margin-right: 40px;
+    display: inline-block;
+    
+    margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 15px;
     font-size: 20px;
     font-weight: bold;
+    min-width: 430px;
 }
-div#miasto1{
-    margin-right: 0px;
-}
+
 a.nazwa{
     font-size: 35px;
 }
@@ -124,6 +134,12 @@ img#samolotzdj{
 ol{
     text-align: left;
 }
+
+nav{
+    grid-area: nav;
+    text-align: left;
+    background-color: green;
+}
 nav ul{
     list-style: none;
     text-transform: uppercase;
@@ -132,20 +148,18 @@ nav ul{
 nav >ul{
     padding-left: 1px;
 }
+nav a{
+    color:darkblue;
+}
 nav a:link{
     text-decoration: none;
 }
 nav a:visited{
-    color:blue;
-}
-nav{
-    flex:1;
-    text-align: left;
-    background-color: darkgreen;
+    color:darkblue;
 }
 aside{
-    flex:1;
-    background-color: darkgreen;
+    grid-area: aside;
+    background-color: green;
 }
 aside tr{
     background-color: rgb(226, 208, 43);
@@ -159,20 +173,79 @@ aside tr.odwolany{
 aside form{
     text-align: left;
 }
-div#lotyContainer{
-    display: flex;
+aside ol{
+    background-color: limegreen;
 }
-@media screen and (max-width:800px){
-    div#lotyContainer{
-        flex-flow: row wrap;
+aside >ol >li{
+    position: relative;
+}
+aside >ol >li:nth-child(2n){
+    background-color: lime;
+}
+li .miejsce{
+    display: none;
+    z-index: 10;
+}
+li:hover .miejsce{
+    background-color: darkgreen;
+    display: block;
+    width: 100px;
+    height: 20px;
+    position: absolute;
+    left:100px;
+    top: -8px;
+}
+div#okienko{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.7);
+    width:70%;
+    height: 70%;
+    min-width: 300px;
+    position: fixed;
+    top:15%;
+    left:15%;
+    z-index: 11;
+
+}
+div#okienko > h1{
+    opacity:0.95;
+}
+
+@media screen and (max-width:400px){
+    #contListaLotow{
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "header" "nav" "main" "aside" "footer";
     }
-    nav{
-        width: 100%;
+    #contDaneLotu{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "header" "main" "aside" "footer";
     }
-    main,aside{
-        width: 50%;
+    .imgMiasto{
+        display: none;
     }
-    main#listaLotow{
-        width: 50%;
+    div.miasto > div{
+        display: none;
+    }
+    div.miasto{
+        min-width:0px;
+        width: 80%;
+    }
+}
+
+@media screen and (min-width:400px) and (max-width:800px){
+    #contListaLotow{
+        grid-template-columns: minmax(340px, 2fr) 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "header header"
+        "nav nav" 
+        "main aside" 
+        "footer footer";
     }
 }
