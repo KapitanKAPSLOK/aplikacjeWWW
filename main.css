@@ -213,6 +213,10 @@ div#okienko > h1{
     opacity:0.95;
 }
 
+.hidden{
+    display: none;
+}
+
 @media screen and (max-width:400px){
     #contListaLotow{
         grid-template-columns: 100%;

@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-let el = document.querySelector("input[name=imie]");
 let nowyAkapit = document.createElement("p");
 nowyAkapit.innerHTML = "Nowy akapit.";
 nowyAkapit.style.backgroundColor = "rgb(100,100,100)";
@@ -24,7 +23,7 @@ if (najwiekszyPasazer != null && lista != null) {
             najwiekszyPasazer = element;
         }
     });
-    let id = najwiekszyPasazer.getAttribute("data-identyfikator-pasazera");
+    const id = najwiekszyPasazer.getAttribute("data-identyfikator-pasazera");
     console.log(id);
 }
 setTimeout(() => {
@@ -33,6 +32,7 @@ setTimeout(() => {
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+//zmienianie koloru tła
 let kolory = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
 function teczoweKolory(el) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -43,13 +43,77 @@ function teczoweKolory(el) {
     });
 }
 teczoweKolory(body);
+//wyświetlanie zdjęcia autora ostatniego commita w typescripcie
 fetch(' https://api.github.com/repos/Microsoft/TypeScript/commits')
     .then(res => res.json())
-    .then(data => {
+    .then(dataRes => {
     const zdj = document.createElement("img");
-    zdj.src = data[0].author.avatar_url;
+    zdj.src = dataRes[0].author.avatar_url;
     if (body != null)
         body.appendChild(zdj);
 })
     .catch(err => console.error(err));
+let aside = document.querySelector("#contListaLotow > aside");
+let grid = document.querySelector("#contListaLotow");
+if (grid != null)
+    grid.onclick = function (event) {
+        if (aside.contains(event.target))
+            changeColor(aside);
+    };
+//klasa generująca kolejne liczby fibonacciego
+class Fibonacci {
+    constructor() {
+        this.fib1 = 0;
+        this.fib2 = 1;
+    }
+    nextFib() {
+        const temp = this.fib2;
+        this.fib2 = this.fib1 + this.fib2;
+        this.fib1 = temp;
+        return this.fib1;
+    }
+}
+//tworzenie ciągu liczb fibbonacciego
+let fib = new Fibonacci();
+function changeColor(el) {
+    if (el === null)
+        return;
+    if (el.style.backgroundColor === 'green')
+        el.style.backgroundColor = 'blue';
+    else if (el.style.backgroundColor === 'blue')
+        el.style.backgroundColor = 'green';
+    else
+        el.style.backgroundColor = 'green';
+    console.log(10 * fib.nextFib());
+}
+let formularz = document.getElementById("rezerwacjaForm");
+let imie = document.querySelector("input[name=imie]");
+let nazwisko = document.querySelector("input[name=nazwisko]");
+let data = document.querySelector("input[name=data]");
+let submit = document.querySelector("input[type=submit]");
+let skad = document.getElementById("skad");
+let dokad = document.getElementById("dokad");
+if (submit != null && (imie.value === "" || nazwisko.value === "" ||
+    data.valueAsDate < new Date())) {
+    submit.classList.add('hidden');
+}
+formularz.oninput = () => {
+    if (imie.value !== "" && nazwisko.value !== "" && data.valueAsDate >= new Date())
+        submit.classList.remove("hidden");
+    else
+        submit.classList.add('hidden');
+};
+let potwierdzenie = document.getElementById("okienko");
+potwierdzenie.style.display = "none";
+//pokazywanie okienka o udanej rezerwacji
+formularz.onsubmit = (event) => {
+    potwierdzenie.style.display = null;
+    const tekst = document.createElement("h1");
+    tekst.innerText = "Zarezerwowano lot z " + skad.value + " do " +
+        dokad.value + " dla pasażera: " + imie.value + " " + nazwisko.value + ".";
+    potwierdzenie.innerText = null;
+    potwierdzenie.appendChild(tekst);
+    event.preventDefault();
+};
+body.onclick = () => potwierdzenie.style.display = "none";
 //# sourceMappingURL=main.js.map
