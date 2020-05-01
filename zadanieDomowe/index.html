@@ -10,6 +10,31 @@
     <script src='main.js'></script>
 </head>
 <body>
-    
+    <div id="contQuiz" class="container">
+        <header>Quizy artmetyczne</header>
+        <main>
+            <p>Witaj na stronie z quizami artmetycznymi. 
+                Wybierz rodzaj quizu jaki chcesz uzupełnić poniżej.
+                Po naciśnięciu przycisku start przejdziesz do pierwszego pytania 
+                oraz włączy się zegar. Celem jest rozwiązanie quizu w jak najkrótszym czasie.
+                Jednak udzielenie błędnej odpowiedzi na pytanie będzie powodować doliczeniem karnego czasu. 
+                <br>Powodzenia!</p>
+                <br>
+            <form id="rodzajQuizu">
+                <label for="rodzaj">
+                    Wybierz rodzaj quizu:
+                </label>
+                <select id="rodzaj">
+                    <option value="dodawanie">Dodawanie</option>
+                    <option value="odejmowanie">Odejmowanie</option>
+                    <option selected value="mix">Mix</option>
+                </select>
+                <input type="submit" value="Start">
+            </form>
+        </main>
+        <footer>
+            Autor: Mateusz Turowski
+        </footer>
+    </div>
 </body>
 </html>
