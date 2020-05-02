@@ -7,7 +7,6 @@
     <title>Quiz</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
 </head>
 <body>
     <div id="contQuiz" class="container">
@@ -20,14 +19,14 @@
                 Jednak udzielenie błędnej odpowiedzi na pytanie będzie powodować doliczeniem karnego czasu. 
                 <br>Powodzenia!</p>
                 <br>
-            <form id="rodzajQuizu">
+            <form id="rodzajQuizu" action="quiz.html">
                 <label for="rodzaj">
                     Wybierz rodzaj quizu:
                 </label>
                 <select id="rodzaj">
-                    <option value="dodawanie">Dodawanie</option>
-                    <option value="odejmowanie">Odejmowanie</option>
-                    <option selected value="mix">Mix</option>
+                    <option value=0>Mix</option>
+                    <option value=1>Dodawanie</option>
+                    <option value=2>Odejmowanie</option>
                 </select>
                 <input type="submit" value="Start">
             </form>
@@ -36,5 +35,6 @@
             Autor: Mateusz Turowski
         </footer>
     </div>
+    <script src='main.js'></script>
 </body>
 </html>
