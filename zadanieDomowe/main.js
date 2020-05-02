@@ -1,8 +1,10 @@
+"use strict";
 ////quizy w formacie JSON////
 let bazaQuizow = new Array(2);
 //quiz z mieszanymi pytaniami
 bazaQuizow[0] = `{
     "nazwa": "Mix",
+    "wstep": "Liczyć każdy może.",
     "pytania":[
         {"tresc": "2+2=", "odpowiedz": 4, "kara": 4},
         {"tresc": "2+3=", "odpowiedz": 5, "kara": 4},
@@ -12,6 +14,7 @@ bazaQuizow[0] = `{
 //quiz o dodawaniu
 bazaQuizow[1] = `{
     "nazwa": "Dodawanie",
+    "wstep": "Liczyć każdy może.",
     "pytania":[
         {"tresc": "2+0=", "odpowiedz": 2, "kara": 4},
         {"tresc": "2+3+9=", "odpowiedz": 14, "kara": 6},

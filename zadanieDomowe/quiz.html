@@ -7,21 +7,25 @@
     <title>Quiz</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='quiz.js'></script>
 </head>
 <body>
     <div id="contQuiz" class="container">
         <header>Quizy artmetyczne</header>
         <main>
-            <p>Dodawanie <br> Liczyć każdy może.</p>
-            <button type="button" id="prev" class="button">Poprzednie pytanie</button>
-            <button type="button" id="cancel" class="button">Wyjdź bez zapisu</button>
-            <button type="button" id="end" class="button">Zakończ i zapisz</button>
-            <button type="button" id="next" class="button">Następne pytanie</button>
+            <div id="obszarPytan">
+                <form id="pytania">
+                    
+                </form>
+                <button type="button" id="prev" class="button hidden">Poprzednie pytanie</button>
+                <button type="button" id="cancel" onclick="window.location.replace('index.html');" class="button">Wyjdź bez zapisu</button>
+                <button type="button" id="end" class="button">Zakończ i zapisz</button>
+                <button type="button" id="next" class="button">Następne pytanie</button>
+            </div>
         </main>
         <footer>
             Autor: Mateusz Turowski
         </footer>
     </div>
 </body>
+<script src='quiz.js'></script>
 </html>

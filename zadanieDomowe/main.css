@@ -46,3 +46,16 @@ footer {
     margin-top: 50px;  
     width: 60%;
   }
+div#obszarPytan{
+    width:60%;
+    margin:auto;
+    background-color: #e7e427;
+    padding-bottom: 20px;
+}
+form#pytania{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.hidden{
+    display: none;
+}
