@@ -62,9 +62,9 @@ form#pytania{
 table#wyniki{
     border: 1mm solid grey;
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     line-height: normal;
+    margin-top: 30px;
 }
 table#wyniki tr{
     border: 1mm ridge grey;
@@ -72,4 +72,9 @@ table#wyniki tr{
 table#wyniki th{
     border: 1mm ridge grey;
     padding: 5px;
+}
+div#zegar{
+    width: 10%;
+    margin: auto;
+    background-color: #16ca16;
 }
