@@ -18,11 +18,11 @@ if(wybor === null){
 }
 const quiz:IQuiz=JSON.parse(<string>wybor);
 
-let obszarPytan=document.getElementById("obszarPytan");
-let main=document.querySelector("main");
-let pytania=document.getElementById("pytania");
+let obszarPytan=document.getElementById("obszarPytan") as HTMLDivElement;
+let main=document.querySelector("main") as HTMLDivElement;
+let pytania=document.getElementById("pytania") as HTMLFormElement;
 
-const opis=document.createElement('p');
+let opis=document.createElement('p');
 
 opis.innerHTML=quiz.nazwa+"<br>"+quiz.wstep+"<br>";
 if(main!==null){
@@ -68,6 +68,9 @@ odpLabels[nr-1].classList.remove("hidden");
 const next=document.getElementById("next") as HTMLButtonElement;
 const prev=document.getElementById("prev") as HTMLButtonElement;
 const end=document.getElementById("end") as HTMLButtonElement;
+const save=document.getElementById("save") as HTMLButtonElement;
+const saveAll=document.getElementById("saveAll") as HTMLButtonElement;
+
 next.onclick=function(){
     if(nr>=quiz.pytania.length){
         //nie powinno się zdarzyć, ale na wszelki wypadek
@@ -101,4 +104,50 @@ prev.onclick=function(){
         next.classList.remove("hidden");
     }
     nrPytania.innerHTML=String(nr);
+}
+//przycisk końca quizu staje się aktywny dopiero po odpowiedzi na wszystkie pytania
+if(pytania!==null){
+    pytania.oninput=function(){
+        for(let p of odp){
+            if(p.value===""){
+                end.classList.add("hidden");
+                return;
+            }
+        }
+        end.classList.remove("hidden");
+    }
+}
+//zakończ powoduje przejście do podsumowania wyników
+end.onclick=function(){
+    let wyniki=document.getElementById("wyniki");
+    let gratulacje=document.getElementById("gratulacje");
+    opis.classList.add("hidden");
+    if(gratulacje!==null){
+        gratulacje.innerText+=quiz.nazwa;
+        gratulacje.innerHTML+="<br> Twój czas to ";
+        gratulacje.classList.remove("hidden");
+    }  
+    save.classList.remove("hidden");
+    saveAll.classList.remove("hidden");
+    obszarPytan.classList.add("hidden");
+    if(wyniki!==null){
+        wyniki.classList.remove("hidden");
+        let i:number=0;
+        for(let p of odp){
+            let tr=document.createElement('tr');
+            let th=document.createElement('th');
+            th.innerText=String(++i);
+            tr.appendChild(th);
+            let th2=document.createElement('th');
+            th2.innerText=p.value;
+            tr.appendChild(th2);
+            let th3=document.createElement('th');
+            th3.innerText=String(quiz.pytania[i-1].odpowiedz);
+            tr.appendChild(th3);
+            let th4=document.createElement('th');
+            th4.innerText="czass"; //TODO: wpisać czas po dodaniu zegara
+            tr.appendChild(th4);
+            wyniki.appendChild(tr);
+        }
+    }
 }

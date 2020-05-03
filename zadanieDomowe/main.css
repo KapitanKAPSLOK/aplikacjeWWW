@@ -4,6 +4,9 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
+.hidden{
+    display: none;
+}
 #contQuiz{
     background-color: #eaeae1;
 	width: 90%;
@@ -56,6 +59,17 @@ form#pytania{
     padding-top: 30px;
     padding-bottom: 30px;
 }
-.hidden{
-    display: none;
+table#wyniki{
+    border: 1mm solid grey;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: normal;
+}
+table#wyniki tr{
+    border: 1mm ridge grey;
+}
+table#wyniki th{
+    border: 1mm ridge grey;
+    padding: 5px;
 }

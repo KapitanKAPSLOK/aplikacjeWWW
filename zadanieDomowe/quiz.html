@@ -12,14 +12,23 @@
     <div id="contQuiz" class="container">
         <header>Quizy artmetyczne</header>
         <main>
+            <p id="gratulacje" class="hidden">Gratulacje, udało ci się rozwiązać quiz </p>
+            <table id="wyniki" class="hidden">
+                <tr>
+                    <th>nr pytania</th><th>odpowiedź</th><th>poprawna odpowiedź</th><th>czas (+kara)</th>
+                </tr>
+            </table>
+            <button class="hidden" type="button" id="saveAll" class="button hidden">Zapisz statystyki</button>
+            <button class="hidden" type="button" id="save" class="button hidden">Zapisz sam wynik</button>
             <div id="obszarPytan">
                 <form id="pytania">
                     
                 </form>
                 <button type="button" id="prev" class="button hidden">Poprzednie pytanie</button>
                 <button type="button" id="cancel" onclick="window.location.replace('index.html');" class="button">Wyjdź bez zapisu</button>
-                <button type="button" id="end" class="button">Zakończ i zapisz</button>
                 <button type="button" id="next" class="button">Następne pytanie</button>
+                <br>
+                <button type="button" id="end" class="button hidden">Zakończ i zapisz</button>
             </div>
         </main>
         <footer>
