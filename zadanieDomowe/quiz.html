@@ -18,7 +18,7 @@
             </div>
             <table id="wyniki" class="hidden">
                 <tr>
-                    <th>nr pytania</th><th>odpowiedź</th><th>poprawna odpowiedź</th><th>czas (+kara), sec</th>
+                    <th>nr pytania</th><th>odp.</th><th>poprawna odp.</th><th>czas (+kara), sek</th>
                 </tr>
             </table>
             <button class="hidden" type="button" id="saveAll" class="button hidden">Zapisz statystyki</button>
@@ -27,11 +27,13 @@
                 <form id="pytania">
                     
                 </form>
-                <button type="button" id="prev" class="button hidden">Poprzednie pytanie</button>
-                <button type="button" id="cancel" onclick="window.location.replace('index.html');" class="button">Wyjdź bez zapisu</button>
-                <button type="button" id="next" class="button">Następne pytanie</button>
-                <br>
-                <button type="button" id="end" class="button hidden">Zakończ i zapisz</button>
+                <div id="contPrzyciski" class="container">
+                    <button type="button" id="prev" class="button hidden">Poprzednie pytanie</button>
+                    <button type="button" id="cancel" onclick="window.location.replace('index.html');" class="button">Wyjdź bez zapisu</button>
+                    <button type="button" id="next" class="button">Następne pytanie</button>
+                    <button type="button" id="end" class="button hidden">Zakończ i zapisz</button>
+                </div>
+
             </div>
         </main>
         <footer>

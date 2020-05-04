@@ -7,11 +7,30 @@ body{
 .hidden{
     display: none;
 }
+.container{
+    display: grid;
+    place-items: stretch;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
 #contQuiz{
     background-color: #eaeae1;
 	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
+	overflow: hidden;
+	border: 5px #5F9BD1 solid;
+    border-radius: 20px;
+
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+}
+#contQuizIndex{
+    background-color: #eaeae1;
+	width: 90%;
 	overflow: hidden;
 	border: 5px #5F9BD1 solid;
     border-radius: 20px;
@@ -49,6 +68,27 @@ footer {
     margin-top: 50px;  
     width: 60%;
   }
+div#contPrzyciski{
+    grid-template-columns: 1fr 130px 121px 130px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+    ". prev cancel next ."
+    ". . finish . ."
+}
+button#next{
+    grid-area: next;
+}
+button#prev{
+    grid-area: prev;
+}
+button#cancel{
+    margin:auto;
+    grid-area: cancel;
+}
+button#end{
+    margin: auto;
+    grid-area: finish;
+}
 div#obszarPytan{
     width:60%;
     margin:auto;
@@ -74,7 +114,42 @@ table#wyniki th{
     padding: 5px;
 }
 div#zegar{
-    width: 10%;
+    width: 12%;
+    min-width: 80px;
     margin: auto;
     background-color: #16ca16;
+}
+
+
+@media screen and (max-width:400px){
+    div#contQuiz{
+        width: 100%;
+    }
+    footer{
+        width: 100%;
+    }
+    div#obszarPytan{
+        width: 100%;
+    }
+    div#contPrzyciski{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+        "prev next"
+        "cancel cancel"
+        "finish finish"
+    }
+}
+@media screen and (min-width:400px) and (max-width:800px){
+    div#contQuiz{
+        width: 95%;
+    }
+    div#obszarPytan{
+        width: 100%;
+    }
+}
+@media screen and (max-height:500px){
+    #contQuiz header{
+        display: none;
+    }
 }

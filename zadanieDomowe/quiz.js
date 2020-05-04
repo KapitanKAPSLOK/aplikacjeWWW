@@ -51,6 +51,12 @@ let odp = document.querySelectorAll("#pytania > input");
 let odpLabels = document.querySelectorAll("#pytania > label");
 odp[nr - 1].classList.remove("hidden");
 odpLabels[nr - 1].classList.remove("hidden");
+//informacja o przyznawanej karze czasowej za błędną odpowiedź
+let ileKary = document.createElement('p');
+ileKary.innerHTML = "(kara za błędną odpowiedź: " + String(quiz.pytania[0].kara) + " sekund)<br>";
+ileKary.style.display = "inline";
+ileKary.style.fontSize = "14px";
+pytania.insertBefore(ileKary, pytania.children[2]);
 //klasa obsługująca zegar i mierzenie czasu
 class Timer {
     constructor(zegar) {
@@ -142,6 +148,7 @@ next.onclick = function () {
         prev.classList.remove("hidden");
     }
     nrPytania.innerHTML = String(nr);
+    ileKary.innerHTML = ileKary.innerHTML = "(kara za błędną odpowiedź: " + String(quiz.pytania[nr - 1].kara) + " sekund)<br>";
 };
 prev.onclick = function () {
     if (nr <= 0) {
@@ -160,6 +167,7 @@ prev.onclick = function () {
         next.classList.remove("hidden");
     }
     nrPytania.innerHTML = String(nr);
+    ileKary.innerHTML = ileKary.innerHTML = "(kara za błędną odpowiedź: " + String(quiz.pytania[nr - 1].kara) + " sekund)<br>";
 };
 //przycisk końca quizu staje się aktywny dopiero po odpowiedzi na wszystkie pytania
 if (pytania !== null) {
@@ -173,6 +181,7 @@ if (pytania !== null) {
         end.classList.remove("hidden");
     };
 }
+let wynik; //zmienna trzymająca wynik quizu
 //zakończ powoduje przejście do podsumowania wyników
 end.onclick = function () {
     timer.stop();
@@ -191,7 +200,7 @@ end.onclick = function () {
     obszarPytan.classList.add("hidden");
     if (wyniki !== null) {
         wyniki.classList.remove("hidden");
-        //tworzenie statystyk quizu
+        //wyświetlanie statystyk quizu
         let i = 0;
         let kary = 0;
         for (let p of odp) {
@@ -207,9 +216,6 @@ end.onclick = function () {
             tr.appendChild(th3);
             let th4 = document.createElement('th');
             let timeSpent = Number(p.dataset.timeSpent);
-            //dodawanie kary za złą odpowiedź
-            //if(String(quiz.pytania[i-1].odpowiedz)!==p.value)
-            // timeSpent+=1000*quiz.pytania[i-1].kara;    
             th4.innerText = String(timeSpent / 1000);
             if (String(quiz.pytania[i - 1].odpowiedz) !== p.value) {
                 th4.innerText += " (+" + String(quiz.pytania[i - 1].kara) + ")";
@@ -219,8 +225,58 @@ end.onclick = function () {
             wyniki.appendChild(tr);
         }
         if (gratulacje !== null) {
-            let time = timer.getTime() + 1000 * kary;
-            gratulacje.innerHTML += timer.parseTime(time);
+            wynik = timer.getTime() + 1000 * kary;
+            gratulacje.innerHTML += timer.parseTime(wynik);
+            let temp = wynik % 100;
+            if (temp < 10)
+                gratulacje.innerHTML += "0";
+            gratulacje.innerHTML += String(temp);
         }
     }
+};
+//tworzenie id wyniku na podstawie ilości zapisanych dotąd wyników w localstorage
+function getAnswerIdNumber() {
+    let storage = window.localStorage;
+    let ilosc = storage.getItem(quiz.nazwa + "iloscWynikow");
+    let ile;
+    if (ilosc === null) {
+        //nie zapisano dotąd żadnego wyniku, tworzenie nowej zmiennej
+        storage.setItem(quiz.nazwa + "iloscWynikow", "1");
+        ile = 1;
+    }
+    else {
+        ile = Number(ilosc);
+        storage.setItem(quiz.nazwa + "iloscWynikow", String(++ile));
+    }
+    return "wynikNr" + String(ile);
+}
+//przyciski do zapisu statystyk
+//zapis samego wyniku
+save.onclick = function () {
+    //zmienna do zapisu statystyk rozwiązania
+    let statystyki = {
+        nazwa: quiz.nazwa,
+        czasCalkowity: wynik,
+        czas: null
+    };
+    let idWyniku = getAnswerIdNumber();
+    window.localStorage.setItem(idWyniku, JSON.stringify(statystyki));
+    window.location.replace("index.html");
+};
+//zapis wyniku ze statystykami
+saveAll.onclick = function () {
+    //zmienna do zapisu statystyk rozwiązania
+    let statystyki = {
+        nazwa: quiz.nazwa,
+        czasCalkowity: wynik,
+        czas: null
+    };
+    statystyki.czas = new Array(odp.length);
+    let i = 0;
+    for (let o of odp) {
+        statystyki.czas[i++] = Number(o.dataset.timeSpent);
+    }
+    let idWyniku = getAnswerIdNumber();
+    window.localStorage.setItem(idWyniku, JSON.stringify(statystyki));
+    window.location.replace("index.html");
 };
