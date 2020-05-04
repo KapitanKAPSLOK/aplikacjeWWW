@@ -49,14 +49,24 @@ if (pytania !== null) {
 let nrPytania = document.getElementById("nrPytania");
 let odp = document.querySelectorAll("#pytania > input");
 let odpLabels = document.querySelectorAll("#pytania > label");
+//pokazanie pierwszego pytania i umieszczenie kursora w nim
 odp[nr - 1].classList.remove("hidden");
 odpLabels[nr - 1].classList.remove("hidden");
+odp[nr - 1].focus();
+odp[nr - 1].select();
 //informacja o przyznawanej karze czasowej za błędną odpowiedź
 let ileKary = document.createElement('p');
 ileKary.innerHTML = "(kara za błędną odpowiedź: " + String(quiz.pytania[0].kara) + " sekund)<br>";
 ileKary.style.display = "inline";
 ileKary.style.fontSize = "14px";
 pytania.insertBefore(ileKary, pytania.children[2]);
+//obsługa naciśnięć klawiszy na stronie
+function logKey(e) {
+    if (e.keyCode === 13) {
+        next.click();
+    }
+}
+document.addEventListener("keydown", logKey);
 //klasa obsługująca zegar i mierzenie czasu
 class Timer {
     constructor(zegar) {
@@ -111,6 +121,7 @@ class Timer {
             //zegar został zatrzymany, ustawiamy wartość końcową na zegarze
             let time = this.end - this.start;
             this.zegar.innerText = this.parseTime(time);
+            this.zegar.style.color = "#ca0000";
         }
     }
 }
@@ -142,6 +153,8 @@ next.onclick = function () {
     odpLabels[nr - 1].classList.add("hidden");
     odp[nr].classList.remove("hidden");
     odpLabels[nr].classList.remove("hidden");
+    odp[nr].focus();
+    odp[nr].select();
     if (++nr === quiz.pytania.length)
         next.classList.add("hidden");
     if (nr === 2) {
@@ -161,6 +174,8 @@ prev.onclick = function () {
     odpLabels[nr - 1].classList.add("hidden");
     odp[nr - 2].classList.remove("hidden");
     odpLabels[nr - 2].classList.remove("hidden");
+    odp[nr - 2].focus();
+    odp[nr - 2].select();
     if (--nr === 1)
         prev.classList.add("hidden");
     if (nr === quiz.pytania.length - 1) {
@@ -220,6 +235,10 @@ end.onclick = function () {
             if (String(quiz.pytania[i - 1].odpowiedz) !== p.value) {
                 th4.innerText += " (+" + String(quiz.pytania[i - 1].kara) + ")";
                 kary += quiz.pytania[i - 1].kara;
+                tr.classList.add("odpBledna");
+            }
+            else {
+                tr.classList.add("odpPoprawna");
             }
             tr.appendChild(th4);
             wyniki.appendChild(tr);
@@ -248,7 +267,7 @@ function getAnswerIdNumber() {
         ile = Number(ilosc);
         storage.setItem(quiz.nazwa + "iloscWynikow", String(++ile));
     }
-    return "wynikNr" + String(ile);
+    return quiz.nazwa + "wynikNr" + String(ile);
 }
 //przyciski do zapisu statystyk
 //zapis samego wyniku
