@@ -19,7 +19,7 @@ bazaQuizow[1]=`{
     "pytania":[
         {"tresc": "2+0=", "odpowiedz": 2, "kara": 4},
         {"tresc": "2+3+9=", "odpowiedz": 14, "kara": 6},
-        {"tresc": "-2+(-6)=", "odpowiedz": -10, "kara": 5},
+        {"tresc": "-2+(-6)=", "odpowiedz": -8, "kara": 5},
         {"tresc": "-2+6=", "odpowiedz": 4, "kara": 5}
     ]
 }`;
@@ -33,6 +33,17 @@ bazaQuizow[2]=`{
         {"tresc": "-2-6=", "odpowiedz": -10, "kara": 5},
         {"tresc": "144-17=", "odpowiedz": 127, "kara": 6},
         {"tresc": "139-17-26=", "odpowiedz": 96, "kara": 10}
+    ]
+}`;
+//quiz o mnożeniu
+bazaQuizow[3]=`{
+    "nazwa": "Mnozenie",
+    "wstep": "Liczyć każdy może.",
+    "pytania":[
+        {"tresc": "0*2=", "odpowiedz": 0, "kara": 3},
+        {"tresc": "2*3*9=", "odpowiedz": 54, "kara": 7},
+        {"tresc": "2*(-2)=", "odpowiedz": -4, "kara": 4},
+        {"tresc": "-4*(-6)=", "odpowiedz": 24, "kara": 6}
     ]
 }`;
 

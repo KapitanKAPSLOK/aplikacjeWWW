@@ -144,7 +144,6 @@ const save = document.getElementById("save");
 const saveAll = document.getElementById("saveAll");
 next.onclick = function () {
     if (nr >= quiz.pytania.length) {
-        //nie powinno się zdarzyć, ale na wszelki wypadek
         nr = quiz.pytania.length;
         return;
     }
