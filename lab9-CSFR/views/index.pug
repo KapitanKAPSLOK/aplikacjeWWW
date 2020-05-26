@@ -1,0 +1,21 @@
+html
+    head
+        title= title
+    style
+        include ../public/stylesheets/style.css
+    body
+        header
+            h1= message
+        main
+            img(src="https://www.wykop.pl/cdn/c3201142/comment_yLPXkSs8aAtP9YZUXIyoCJbRAqjg2tzu.jpg")
+            br
+            br
+            h1="Meme list"
+            ul
+                each meme in memes
+                    li
+                        form(action="http://localhost:3000/meme/" + meme.id method="POST")
+                            input(type="hidden" name="price" value=1)
+                            input(type="submit" value=meme.name+" (1200)" class="button-link") 
+                        img(src=meme.url)
+

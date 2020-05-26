@@ -1,0 +1,24 @@
+html
+    head
+        title= title
+    style
+        include ../public/stylesheets/style.css
+    body
+        header
+            h1 #{meme.name}
+        main
+            img(src=meme.url class="maly")
+            form(method="post") Ile według ciebie warty jest mem?
+                br
+                input(type="number" name='price')
+                input(type="submit" value="Zmień cenę")
+            a(href="/" class="powrot") Powrót do strony głównej
+            br
+            br
+            table
+                tr
+                    th Historia cen
+                each price in meme.prices
+                    tr
+                        th #{price}
+
