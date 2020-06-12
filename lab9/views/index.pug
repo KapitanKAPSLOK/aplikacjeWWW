@@ -14,6 +14,6 @@ html
             ul
                 each meme in memes
                     li
-                        a(href="meme/" + meme.id) #{meme.name} (#{meme.getPrice()})
+                        a(href="meme/" + meme.id) #{meme.name} (#{meme.price})
                         img(src=meme.url)
 

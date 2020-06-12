@@ -10,6 +10,8 @@ html
             img(src=meme.url class="maly")
             form(method="post") Ile według ciebie warty jest mem?
                 br
+                //input(type="hidden" name="_csrf" value=csrfToken)
+                
                 input(type="number" name='price')
                 input(type="submit" value="Zmień cenę")
             a(href="/" class="powrot") Powrót do strony głównej
@@ -18,7 +20,7 @@ html
             table
                 tr
                     th Historia cen
-                each price in meme.prices
+                each price in prices
                     tr
-                        th #{price}
+                        th #{price.price}
 
