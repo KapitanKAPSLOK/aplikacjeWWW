@@ -17,8 +17,8 @@ class Meme {
         this.url = url;
         this.price = price;
     }
-    async changePrice(p) {
-        await Baza.get().changePrice(this.id, p);
+    async changePrice(p, user) {
+        await Baza.get().changePrice(this.id, p, user);
     }
 }
 exports.Meme = Meme;
@@ -39,8 +39,11 @@ class Baza {
                 );`).run(`CREATE TABLE IF NOT EXISTS ceny (
                 id INTEGER REFERENCES memy(id), 
                 price INT,
-                change_date DATETIME
-                );`, (err) => {
+                change_date DATETIME,
+                user VARCHAR(80) REFERENCES users(name)
+                );`).run(`CREATE TABLE IF NOT EXISTS users(
+                        name VARCHAR(80)
+                    )`, (err) => {
                 if (err) {
                     reject(err);
                 }
@@ -58,8 +61,24 @@ class Baza {
         this.db.serialize(() => {
             this.db.run('BEGIN TRANSACTION')
                 .run('INSERT INTO memy(name, url, price) VALUES(?, ?, ?)', [name, url, price])
-                .run('INSERT INTO ceny VALUES (last_insert_rowid(), ?, CURRENT_TIMESTAMP)', [price])
+                .run('INSERT INTO ceny VALUES (last_insert_rowid(), ?, CURRENT_TIMESTAMP, NULL)', [price])
                 .run('COMMIT');
+        });
+    }
+    dodajUzytkownika(name) {
+        if (name.length <= 80) //80- maksymalna długość loginu
+            this.db.run('INSERT INTO users VALUES (?)', [name]);
+    }
+    async getUser(name) {
+        return new Promise((resolve, reject) => {
+            this.db.get('SELECT name FROM users WHERE name= ?;', [name], (err, row) => {
+                if (err)
+                    reject(err);
+                if (row) {
+                    resolve(name);
+                }
+                resolve(null);
+            });
         });
     }
     async getMeme(id) {
@@ -95,19 +114,19 @@ class Baza {
     }
     async historiaCen(id) {
         return new Promise((resolve, reject) => {
-            this.db.all('SELECT price FROM ceny WHERE id=? ORDER BY change_date DESC;', [id], (err, rows) => {
+            this.db.all('SELECT price, user FROM ceny WHERE id=? ORDER BY change_date DESC;', [id], (err, rows) => {
                 if (err)
                     reject(err);
                 resolve(rows);
             });
         });
     }
-    async changePrice(id, price) {
+    async changePrice(id, price, user) {
         return new Promise((resolve, reject) => {
             this.db.serialize(() => {
                 this.db.run('BEGIN TRANSACTION')
                     .run('UPDATE memy SET price= ? WHERE id= ?', [price, id])
-                    .run('INSERT INTO ceny VALUES (?, ?, CURRENT_TIMESTAMP)', [id, price])
+                    .run('INSERT INTO ceny VALUES (?, ?, CURRENT_TIMESTAMP, ?)', [id, price, user])
                     .run('COMMIT', (err, rows) => {
                     if (err)
                         reject(err);

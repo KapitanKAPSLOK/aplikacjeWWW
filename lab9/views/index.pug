@@ -1,19 +1,16 @@
-html
-    head
-        title= title
-    style
-        include ../public/stylesheets/style.css
-    body
-        header
-            h1= message
-        main
-            img(src="https://www.wykop.pl/cdn/c3201142/comment_yLPXkSs8aAtP9YZUXIyoCJbRAqjg2tzu.jpg")
-            br
-            br
-            h1="Meme list"
-            ul
-                each meme in memes
-                    li
-                        a(href="meme/" + meme.id) #{meme.name} (#{meme.price})
-                        img(src=meme.url)
+extends layout
+
+block content
+    header
+        h1= message
+    main
+        img(src="https://www.wykop.pl/cdn/c3201142/comment_yLPXkSs8aAtP9YZUXIyoCJbRAqjg2tzu.jpg")
+        br
+        br
+        h1="Meme list"
+        ul
+            each meme in memes
+                li
+                    a(href="meme/" + meme.id) #{meme.name} (#{meme.price})
+                    img(src=meme.url)
 

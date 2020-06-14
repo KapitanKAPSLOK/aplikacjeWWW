@@ -1,7 +1,15 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body
+        div(id="top") Liczba odwiedzonych stron: #{views} 
+            if user
+                div(class= "login") Witaj #{user}.   
+                    a(href="/logout") Wyloguj
+            else
+                form(method="post" action="/login" class="login")
+                    input(type="text" name='login')
+                    input(type="submit" value="zaloguj")         
+        block content
