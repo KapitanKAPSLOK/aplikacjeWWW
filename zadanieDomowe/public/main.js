@@ -1,4 +1,3 @@
-"use strict";
 ////quizy w formacie JSON////
 let bazaQuizow = new Array(2);
 //quiz z mieszanymi pytaniami
