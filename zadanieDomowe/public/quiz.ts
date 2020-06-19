@@ -1,17 +1,17 @@
 //interfejs pojedynczego pytania w quizie
-export interface IPytanie{
+interface IPytanie{
     tresc: string;
     odpowiedz: number;
     kara: number;
 }
 //interfejs quizu
-export interface IQuiz{
+interface IQuiz{
     nazwa: string;
     wstep: string;
     pytania: IPytanie[];
 }
 //interfejs odpowiedzi do quizu
-export interface IOdpowiedzi{
+interface IOdpowiedzi{
     nazwa: string; //nazwa quizu
     czasCalkowity: Number; //czas rozwiązania quizu wraz z karami
     czas: Number[] | null; //czasy odpowiedzi na kolejne pytania bez kar
