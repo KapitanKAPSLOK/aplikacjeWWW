@@ -14,6 +14,20 @@ body{
     margin-left: auto;
     margin-right: auto;
 }
+.contDefaultLayout{
+    background-color: #eaeae1;
+	width: 90%;
+	overflow: hidden;
+	border: 5px #5F9BD1 solid;
+    border-radius: 20px;
+
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+}
 #contQuiz{
     background-color: #eaeae1;
 	width: 90%;
@@ -69,11 +83,11 @@ footer {
     width: 60%;
   }
 div#contPrzyciski{
-    grid-template-columns: 1fr 130px 121px 130px 1fr;
+    grid-template-columns: 1fr 130px 130px 1fr;
     grid-template-rows: auto;
     grid-template-areas:
-    ". prev cancel next ."
-    ". . finish . ."
+    ". prev next ."
+    ". finish finish ."
 }
 button#next{
     grid-area: next;
@@ -81,9 +95,8 @@ button#next{
 button#prev{
     grid-area: prev;
 }
-button#cancel{
+button#return{
     margin:auto;
-    grid-area: cancel;
 }
 button#end{
     margin: auto;
@@ -99,19 +112,23 @@ form#pytania{
     padding-top: 30px;
     padding-bottom: 30px;
 }
-table#wyniki{
+.wyniki{
     border: 1mm solid grey;
     border-collapse: collapse;
     margin: auto;
     line-height: normal;
     margin-top: 30px;
 }
-table#wyniki tr{
+.wyniki tr{
     border: 1mm ridge grey;
 }
-table#wyniki th{
+.wyniki th{
     border: 1mm ridge grey;
     padding: 5px;
+}
+.wyniki a{
+    color: #355fc1;
+    text-decoration: none;
 }
 .odpPoprawna{
     background-color: #16ca16;
@@ -141,9 +158,8 @@ div#zegar{
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
         grid-template-areas:
-        "prev next"
-        "cancel cancel"
-        "finish finish"
+        ". prev next ."
+        ". finish finish ."
     }
 }
 @media screen and (min-width:400px) and (max-width:800px){

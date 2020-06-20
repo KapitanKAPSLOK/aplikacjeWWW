@@ -17,18 +17,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     secret: 'fad8912ma0dfoakSKJD1jadjjJa!jif',
-    cookie: { maxAge: 100000 } //sesja ważna przez 15 min
+    cookie: {}
 }));
-//sprawdzanie czy użytkownik jest zalogowany
-app.use(function (req, res, next) {
-    if (req.session.user) {
-        next();
-    }
-    else {
-        next();
-        //res.sendFile(__dirname+"/public/login.html");
-    }
-});
 app.use('/', router);
 app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler

@@ -64,10 +64,10 @@ export class Baza {
                     .run(
                     `CREATE TABLE IF NOT EXISTS statystyki(
                         login VARCHAR(63) REFERENCES wyniki(login),
-                        id_pytanie INTEGER REFERENCES pytania(id),
+                        id_pytania INTEGER REFERENCES pytania(id),
                         czas REAL,
                         odpowiedz INTEGER,
-                        PRIMARY KEY (login, id_pytanie)
+                        PRIMARY KEY (login, id_pytania)
                     );`, (err) => {
                         if (err) {
                             reject(err);
@@ -109,12 +109,12 @@ export class Baza {
             this.db.run('COMMIT');
         })
     }
-    async getUser(login: string, haslo: string){
+    async getUser(login: string, haslo: string): Promise<string | null>{
         return new Promise((resolve, reject) => {
-            this.db.get('SELECT login FROM users WHERE login= ? && haslo= ?;', [login, haslo], (err, row) => {
+            this.db.get('SELECT login FROM users WHERE login= ? AND haslo= ?;', [login, haslo], (err, row) => {
                 if (err) reject(err);
                 if (row) {
-                    resolve(name);
+                    resolve(row.login);
                 }
                 //nieprawidłowe dane logowania
                 resolve(null);
@@ -154,9 +154,59 @@ export class Baza {
             })
         })
     }
-    async getOdpowiedziId(name: string): Promise<string | null> {
+    async getOdpowiedzi(name: string): Promise< {id: number, odpowiedz: number, kara: number}[] | null> {
         return new Promise((resolve, reject) => {
-            this.db.get('SELECT id, odpowiedz, kara FROM pytania WHERE nazwa= ?', [name], (err, row) => {
+            this.db.all('SELECT id, odpowiedz, kara FROM pytania WHERE quiz= ? ORDER BY id', [name], (err, row) => {
+                if (err) reject(err);
+                if (row) {
+                    resolve(row);
+                }
+                resolve(null);
+            })
+        })
+    }
+    async getWyniki(name: string): Promise<{nazwa:string, wynik:number}[] | null> {
+        return new Promise((resolve, reject) => {
+            this.db.all(`SELECT nazwa, wynik FROM quizy LEFT JOIN
+            (SELECT quiz, wynik FROM wyniki WHERE login = ?) ON nazwa=quiz`, [name], (err, row) => {
+                if (err) reject(err);
+                if (row) {
+                    resolve(row);
+                }
+                resolve(null);
+            })
+        })
+    }
+    /*
+    Funkcja zwraca statystyki konkretnego użytkownika o quizie (odpowiedzi i czas ich rozwiązywania).
+    Zwraca też poprawne odpowiedzi oraz średni czas jaki zajmuje rozwiązanie każdego pytania.
+    */
+    async getStatystyki(login: string, quiz: string): 
+    Promise<{ odp: number, pop: number, czas: number, sr: number }[] | null> {
+
+        return new Promise((resolve, reject) => {
+            this.db.all(
+                `SELECT odp, pop, czas, sr
+             FROM (
+                 SELECT id, pytania.odpowiedz pop, statystyki.odpowiedz odp, czas
+                 FROM pytania LEFT JOIN statystyki ON id=id_pytania
+                 WHERE login=? AND quiz=? 
+             ) AS a LEFT JOIN (
+                 SELECT id_pytania, AVG(czas) sr FROM statystyki GROUP BY id_pytania
+             ) ON id=id_pytania ORDER BY id`
+                , [login, quiz], (err, row) => {
+                    if (err) reject(err);
+                    if (row) {
+                        resolve(row);
+                    }
+                    resolve(null);
+                })
+        })
+    }
+    async getNajlepsi(quiz: string, ile: number): Promise<{nazwa:string, wynik:number}[] | null> {
+        return new Promise((resolve, reject) => {
+            this.db.all(`SELECT login, wynik FROM (SELECT ROW_NUMBER () OVER ( ORDER BY wynik) nr, login, wynik 
+            FROM wyniki WHERE quiz=?) WHERE nr<=?`, [quiz, ile], (err, row) => {
                 if (err) reject(err);
                 if (row) {
                     resolve(row);

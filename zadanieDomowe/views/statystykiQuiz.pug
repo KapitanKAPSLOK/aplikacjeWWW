@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        title= Statystyki
+        link(rel='stylesheet', href='../main.css', type='text/css')
+    body    
+        div(class='container contDefaultLayout')
+            header Statystyki quizu #{nazwa}
+            main 
+                table(class='wyniki')
+                    tr
+                        th nr pytania
+                        th odpowiedź
+                        th poprawna odpowiedź
+                        th twój czas
+                        th średni czas
+                    each s, i in statystyki
+                            tr
+                                th  #{i+1}
+                                th  #{s.odp}
+                                th  #{s.pop}
+                                th  #{s.czas}
+                                th  #{s.sr}
+                br
+                table(class='wyniki') Ranking najlepszych graczy
+                    tr
+                        th Gracz
+                        th Wynik
+                    each s in najlepsi
+                        tr
+                            th #{s.login}
+                            th #{s.wynik}
+                a(href='/') Powrót do strony głównej.
+            footer Autor: Mateusz Turowski
