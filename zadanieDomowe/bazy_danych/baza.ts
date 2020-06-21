@@ -177,6 +177,17 @@ export class Baza {
             })
         })
     }
+    async getWynik(login: string, quiz: string) {
+        return new Promise((resolve, reject) => {
+            this.db.get(`SELECT * FROM wyniki WHERE login = ? AND quiz=?`, [login, quiz], (err, row) => {
+                if (err) reject(err);
+                if (row) {
+                    resolve(row);
+                }
+                resolve(null);
+            })
+        })
+    }
     /*
     Funkcja zwraca statystyki konkretnego użytkownika o quizie (odpowiedzi i czas ich rozwiązywania).
     Zwraca też poprawne odpowiedzi oraz średni czas jaki zajmuje rozwiązanie każdego pytania.

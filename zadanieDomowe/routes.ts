@@ -86,10 +86,20 @@ router.post('/quizData', function(req, res) {
 
 router.post('/quiz', function(req, res) {
     req.session.quiz=req.body.rodzaj;
-    if(req.session.quiz)
-        res.sendFile(__dirname+'/public/quiz.html');
-    else
+    if(req.session.quiz){
+        db.getWynik(req.session.user, req.session.quiz).then(row=>{
+            console.log(row);
+            if(!row)
+                res.sendFile(__dirname+'/public/quiz.html');
+            else{
+                //quiz został już rozwiązany
+                res.sendFile(__dirname+'/public/indexErr.html')
+            }
+        })
+    }  
+    else{
         res.redirect("/");
+    }     
 });
 //renderowanie strony głównej
 router.get('/', function(req, res) {

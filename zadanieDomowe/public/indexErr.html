@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="description" content="Strona do rozwiązywania quizów artmetycznych">
+    <title>Quiz</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<body>
+    <div id="contQuizIndex" class="container">
+        <header>Quizy artmetyczne</header>
+        <main>
+            <p>Witaj na stronie z quizami artmetycznymi. 
+                Wybierz rodzaj quizu jaki chcesz uzupełnić poniżej.
+                Po naciśnięciu przycisku start przejdziesz do pierwszego pytania 
+                oraz włączy się zegar. Celem jest rozwiązanie quizu w jak najkrótszym czasie.
+                Jednak udzielenie błędnej odpowiedzi na pytanie będzie powodować doliczeniem karnego czasu. 
+                <br>Powodzenia!</p>
+                <br>
+                <h1 style="color: red">Rozwiązałeś już ten quiz!</h1>
+                <br>
+            <form id="rodzajQuizu" action="/quiz" method="POST">
+                <label for="rodzaj">
+                    Wybierz rodzaj quizu:
+                </label>
+                <select id="rodzaj" name="rodzaj">
+                    <option value=Mix>Mix</option>
+                    <option value=Dodawanie>Dodawanie</option>
+                    <option value=Odejmowanie>Odejmowanie</option>
+                    <option value=Mnożenie>Mnożenie</option>
+                </select>
+                <input type="submit" value="Start">
+            </form>
+            <br>
+            <a href='/statystyki'>Oglądaj statystyki</a>
+        </main>
+        <footer>
+            Autor: Mateusz Turowski
+        </footer>
+    </div>
+</body>
+<script src='main.js'></script>
+</html>
