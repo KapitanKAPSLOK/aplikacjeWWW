@@ -3,6 +3,7 @@ import * as sqlite3 from 'sqlite3';
 //komunikaty o błędach bazy
 sqlite3.verbose();
 
+
 //interfejs pojedynczego pytania w quizie
 export interface IPytanie{
     tresc: string;
@@ -108,6 +109,10 @@ export class Baza {
             });
             this.db.run('COMMIT');
         })
+    }
+    zmienHaslo(login: string, haslo: string){
+        if(haslo.length<=63) //63- maksymalna długość loginu i hasła
+            this.db.run('UPDATE users SET haslo=? WHERE login=?', [haslo, login]);
     }
     async getUser(login: string, haslo: string): Promise<string | null>{
         return new Promise((resolve, reject) => {

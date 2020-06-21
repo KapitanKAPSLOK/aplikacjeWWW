@@ -1,5 +1,3 @@
-//import { Session } from "inspector";
-
 /*
 Do prawidłowego działania aplikacji potrzebna jest baza danych "bazaMemy.db".
 Jeśli nie istnieje można ją stworzyć odpalając plik zakladaczBazy.js.
@@ -10,7 +8,6 @@ var csurf = require('csurf');
 var csrfProtection = csurf({ cookie: true });
 
 import {Baza} from './bazy_danych/baza';
-import { brotliDecompress } from 'zlib';
 
 let db=Baza.get();
 
@@ -101,11 +98,44 @@ router.post('/quiz', function(req, res) {
         res.redirect("/");
     }     
 });
+
+import * as sqlite3 from 'sqlite3';
 //renderowanie strony głównej
 router.get('/', function(req, res) {
+
+//TODO:
+    // let sesje = new sqlite3.Database('sessions')
+    // sesje.get(`SELECT * FROM sessions`,[],(w)=>{
+    //     console.log(w);
+    // })
+    // sesje.close();
+
     res.sendFile(__dirname+'/public/index.html')
 });
  router.get('/logout', function (req, res) {
+    delete(req.session.user);
+    res.redirect("/");
+})
+router.post('/zmien', function (req, res) {
+    //zmiana hasła w bazie
+    db.zmienHaslo(req.session.user, req.body.haslo);
+    //łączenie do bazy zawierającej informacje o sesjach
+    let sesje = new sqlite3.Database('sessions')
+    
+    let user=req.session.user;
+    //przeglądanie wszystkich sesji w poszukiwaniu sesji użytkownija zmieniającego hasło
+    sesje.all(`SELECT sid, sess FROM sessions`,[],(err,rows)=>{
+        rows.forEach(row => {
+            let j=JSON.parse(row.sess);
+            console.log(j.user);
+            if(j.user==user){
+                //sesja należy do użytkownika, wylogowywanie
+                delete j.user
+                sesje.run(`UPDATE sessions SET sess=? WHERE sid=?`,[JSON.stringify(j), row.sid]);
+            }
+        });
+    })
+    
     delete(req.session.user);
     res.redirect("/");
 })
@@ -118,15 +148,11 @@ router.get('/statystyki', function (req, res) {
 })
 //wyświetla statystyki dotyczące rozwiązania konkretnego quizu
 router.get('/statystyki/:q', function (req, res) {
-    // let obietnice:[Promise<{ odp: number, pop: number, czas: number, sr: number }[] | null>,
-    // Promise<{nazwa:string, wynik:number}[] | null>]
-    // =[db.getStatystyki(req.session.user, req.params.q), db.getNajlepsi(req.session.user, 3)];
     Promise.all([db.getStatystyki(req.session.user, req.params.q), db.getNajlepsi(req.params.q, 3)])
     .then(data=>{
         res.render('statystykiQuiz', {user: req.session.user, statystyki: data[0], 
             nazwa: req.params.q, najlepsi: data[1]});
     })
-    
 })
 
 module.exports = router;

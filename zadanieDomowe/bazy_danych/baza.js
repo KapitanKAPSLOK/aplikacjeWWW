@@ -86,6 +86,10 @@ class Baza {
             this.db.run('COMMIT');
         });
     }
+    zmienHaslo(login, haslo) {
+        if (haslo.length <= 63) //63- maksymalna długość loginu i hasła
+            this.db.run('UPDATE users SET haslo=? WHERE login=?', [haslo, login]);
+    }
     async getUser(login, haslo) {
         return new Promise((resolve, reject) => {
             this.db.get('SELECT login FROM users WHERE login= ? AND haslo= ?;', [login, haslo], (err, row) => {

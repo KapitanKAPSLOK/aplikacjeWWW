@@ -204,53 +204,6 @@ fetch('/quizData').then((j) => {
                 pytania.appendChild(time);
             }
             pytania.submit();
-            // let wyniki=document.getElementById("wyniki");
-            // let gratulacje=document.getElementById("gratulacje");
-            // opis.classList.add("hidden");
-            // if(gratulacje!==null){
-            //     gratulacje.innerText+=quiz.nazwa;
-            //     gratulacje.innerHTML+="<br> Twój wynik to ";
-            //     gratulacje.classList.remove("hidden");
-            // }  
-            // obszarPytan.classList.add("hidden");
-            // if(wyniki!==null){
-            //     wyniki.classList.remove("hidden");
-            //     //wyświetlanie statystyk quizu
-            //     let i:number=0;
-            //     let kary=0;
-            //     for(let p of odp){
-            //         let tr=document.createElement('tr');
-            //         let th=document.createElement('th');
-            //         th.innerText=String(++i);
-            //         tr.appendChild(th);
-            //         let th2=document.createElement('th');
-            //         th2.innerText=p.value;
-            //         tr.appendChild(th2);
-            //         let th3=document.createElement('th');
-            //         th3.innerText=String(quiz.pytania[i-1].odpowiedz);
-            //         tr.appendChild(th3);
-            //         let th4=document.createElement('th');
-            //         let timeSpent=Number(<string>p.dataset.timeSpent);  
-            //         th4.innerText=String(timeSpent/1000);
-            //         if(String(quiz.pytania[i-1].odpowiedz)!==p.value){
-            //             th4.innerText+=" (+"+String(quiz.pytania[i-1].kara)+")";
-            //             kary+=quiz.pytania[i-1].kara;
-            //             tr.classList.add("odpBledna");
-            //         }else{
-            //             tr.classList.add("odpPoprawna");
-            //         }
-            //         tr.appendChild(th4);
-            //         wyniki.appendChild(tr);
-            //     }
-            //     if(gratulacje!==null){
-            //         wynik=timer.getTime()+1000*kary;
-            //         gratulacje.innerHTML+=timer.parseTime(wynik);
-            //         let temp=wynik%100;
-            //         if(temp<10)
-            //             gratulacje.innerHTML+="0";
-            //         gratulacje.innerHTML+=String(temp);
-            //     }
-            // }
         };
         //tworzenie id wyniku na podstawie ilości zapisanych dotąd wyników w localstorage
         function getAnswerIdNumber() {
@@ -268,41 +221,5 @@ fetch('/quizData').then((j) => {
             }
             return quiz.nazwa + "wynikNr" + String(ile);
         }
-        //przyciski do zapisu statystyk
-        // //zapis samego wyniku
-        // save.onclick=function(){
-        //     //zmienna do zapisu statystyk rozwiązania
-        //     let statystyki:IOdpowiedzi ={
-        //         nazwa: quiz.nazwa,
-        //         czasCalkowity: wynik,
-        //         czas: null
-        //     }; 
-        //     let idWyniku=getAnswerIdNumber();
-        //     window.localStorage.setItem(idWyniku,JSON.stringify(statystyki));
-        //     window.location.replace("index.html"); 
-        // }
-        // //zapis wyniku ze statystykami
-        // saveAll.onclick=function(){
-        //     //zmienna do zapisu statystyk rozwiązania
-        //     let statystyki:IOdpowiedzi ={
-        //         nazwa: quiz.nazwa,
-        //         czasCalkowity: wynik,
-        //         czas: null
-        //     }; 
-        //     statystyki.czas=new Array(odp.length);
-        //     let i=0;
-        //     for(let o of odp){
-        //         statystyki.czas[i++]=Number(o.dataset.timeSpent);
-        //     }
-        //     let idWyniku=getAnswerIdNumber();
-        //     window.localStorage.setItem(idWyniku,JSON.stringify(statystyki));
-        //     window.location.replace("index.html"); 
-        // }
     });
 });
-// const wybor=sessionStorage.getItem("wybor");
-// if(wybor === null){
-//     //żaden quiz nie został wybrany
-//     window.location.replace("index.html"); 
-// }
-// const quiz:IQuiz=JSON.parse(<string>wybor);

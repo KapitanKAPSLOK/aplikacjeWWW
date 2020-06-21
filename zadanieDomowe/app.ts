@@ -1,3 +1,5 @@
+import { memoryUsage } from "process";
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,6 +9,14 @@ var logger = require('morgan');
 var router = require('./routes');
 
 var session = require('express-session');
+var SQLiteStore = require('connect-sqlite3')(session);
+
+// db.run('SELECT * FROM sessions',[],w=>{
+//     console.log(w);
+// })
+// SQLiteStore.get('s%3Achm2iwucwqsnSd118uV79DycsYM0WwPu.Sz2JG4F7GuvkjVSqBx8vGv%2F0a9KTnliKiA14yTNc9ZU',w=>{
+//     console.log(w);
+// })
 
 var app = express();
 
@@ -19,10 +29,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-  resave: false,
-  saveUninitialized: true,
-  secret: 'fad8912ma0dfoakSKJD1jadjjJa!jif',
-  cookie: {}
+    store: new SQLiteStore,
+    resave: false,
+    saveUninitialized: true,
+    secret: 'fad8912ma0dfoakSKJD1jadjjJa!jif',
+    cookie: {}
 }));
 
 
