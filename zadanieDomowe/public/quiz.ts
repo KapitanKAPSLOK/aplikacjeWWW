@@ -1,7 +1,7 @@
 //interfejs pojedynczego pytania w quizie
 interface IPytanie{
     tresc: string;
-    odpowiedz: number;
+    //odpowiedz: number;
     kara: number;
 }
 //interfejs quizu

@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 Tworzy bazę danych oraz umieszcza w niej memy.
 */
 const baza_1 = require("./baza");
+//let Baza=require('./baza');
 async function makeDatabase() {
     let db = baza_1.Baza.get();
     await db.create();

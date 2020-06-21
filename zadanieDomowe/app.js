@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,12 +6,6 @@ var logger = require('morgan');
 var router = require('./routes');
 var session = require('express-session');
 var SQLiteStore = require('connect-sqlite3')(session);
-// db.run('SELECT * FROM sessions',[],w=>{
-//     console.log(w);
-// })
-// SQLiteStore.get('s%3Achm2iwucwqsnSd118uV79DycsYM0WwPu.Sz2JG4F7GuvkjVSqBx8vGv%2F0a9KTnliKiA14yTNc9ZU',w=>{
-//     console.log(w);
-// })
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

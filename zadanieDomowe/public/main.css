@@ -142,7 +142,9 @@ div#zegar{
     margin: auto;
     background-color: #16ca16;
 }
-
+a{
+    text-decoration: none;
+}
 
 @media screen and (max-width:400px){
     div#contQuiz{

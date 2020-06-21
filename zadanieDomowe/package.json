@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node ./bin/www & npx mocha -r ts-node/register testy/test.ts",
     "start": "node ./bin/www",
     "createdb": "node ./bazy_danych/zakladaczBazy.js",
     "build": "tsc"
@@ -27,8 +27,12 @@
   "devDependencies": {
     "@types/express": "^4.17.6",
     "@types/express-session": "^1.17.0",
+    "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.13",
+    "@types/selenium-webdriver": "^4.0.9",
     "@types/sqlite3": "^3.1.6",
+    "geckodriver": "^1.19.1",
+    "mocha-webdriver": "^0.2.8",
     "node-pre-gyp": "0.12.0",
     "selenium": "^2.20.0",
     "ts-node": "^8.10.2",

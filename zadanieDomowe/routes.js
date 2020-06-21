@@ -9,17 +9,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
 Do prawidłowego działania aplikacji potrzebna jest baza danych "bazaMemy.db".
-Jeśli nie istnieje można ją stworzyć odpalając plik zakladaczBazy.js.
+Jeśli nie istnieje można ją stworzyć odpalając kod w bazy_danych/zakladaczBazy.js.
 */
 var express = require('express');
 var router = express.Router();
 var csurf = require('csurf');
 var csrfProtection = csurf({ cookie: true });
+const sqlite3 = __importStar(require("sqlite3"));
 const baza_1 = require("./bazy_danych/baza");
 let db = baza_1.Baza.get();
-// db.getNajlepsi('Mix', 3).then((w)=>{
-//     console.log(w);
-// })
 router.post('/login', function (req, res) {
     db.getUser(req.body.login, req.body.password).then((u) => {
         if (u) {
@@ -56,6 +54,7 @@ router.get('/quizData', function (req, res) {
         });
     }
 });
+//na ten adres użytkownik przesyła odpowiedzi rozwiązanego quizu
 router.post('/quizData', function (req, res) {
     if (req.session.quiz) {
         //zapisywanie czasu rozwiązywania quizu
@@ -85,11 +84,11 @@ router.post('/quizData', function (req, res) {
         });
     }
 });
+//użytkownik wysyła tu nazwę quizu jaki chce wypełnić
 router.post('/quiz', function (req, res) {
     req.session.quiz = req.body.rodzaj;
     if (req.session.quiz) {
         db.getWynik(req.session.user, req.session.quiz).then(row => {
-            console.log(row);
             if (!row)
                 res.sendFile(__dirname + '/public/quiz.html');
             else {
@@ -102,32 +101,28 @@ router.post('/quiz', function (req, res) {
         res.redirect("/");
     }
 });
-const sqlite3 = __importStar(require("sqlite3"));
 //renderowanie strony głównej
 router.get('/', function (req, res) {
-    //TODO:
-    // let sesje = new sqlite3.Database('sessions')
-    // sesje.get(`SELECT * FROM sessions`,[],(w)=>{
-    //     console.log(w);
-    // })
-    // sesje.close();
     res.sendFile(__dirname + '/public/index.html');
 });
 router.get('/logout', function (req, res) {
     delete (req.session.user);
     res.redirect("/");
 });
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 router.post('/zmien', function (req, res) {
     //zmiana hasła w bazie
     db.zmienHaslo(req.session.user, req.body.haslo);
     //łączenie do bazy zawierającej informacje o sesjach
     let sesje = new sqlite3.Database('sessions');
     let user = req.session.user;
+    delete req.session.user;
     //przeglądanie wszystkich sesji w poszukiwaniu sesji użytkownija zmieniającego hasło
     sesje.all(`SELECT sid, sess FROM sessions`, [], (err, rows) => {
         rows.forEach(row => {
             let j = JSON.parse(row.sess);
-            console.log(j.user);
             if (j.user == user) {
                 //sesja należy do użytkownika, wylogowywanie
                 delete j.user;
@@ -135,7 +130,6 @@ router.post('/zmien', function (req, res) {
             }
         });
     });
-    delete (req.session.user);
     res.redirect("/");
 });
 //wyświetla listę quizów wraz z wynikami uzyskanymi przez użytkownika
@@ -149,8 +143,10 @@ router.get('/statystyki', function (req, res) {
 router.get('/statystyki/:q', function (req, res) {
     Promise.all([db.getStatystyki(req.session.user, req.params.q), db.getNajlepsi(req.params.q, 3)])
         .then(data => {
-        res.render('statystykiQuiz', { user: req.session.user, statystyki: data[0],
-            nazwa: req.params.q, najlepsi: data[1] });
+        res.render('statystykiQuiz', {
+            user: req.session.user, statystyki: data[0],
+            nazwa: req.params.q, najlepsi: data[1]
+        });
     });
 });
 module.exports = router;

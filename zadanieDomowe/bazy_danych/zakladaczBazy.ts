@@ -2,6 +2,7 @@
 Tworzy bazę danych oraz umieszcza w niej memy.
 */
 import {Baza} from './baza';
+//let Baza=require('./baza');
 
 async function makeDatabase(){
     let db=Baza.get();
